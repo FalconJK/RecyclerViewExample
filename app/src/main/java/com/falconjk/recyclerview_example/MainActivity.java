@@ -9,6 +9,7 @@ import android.widget.SearchView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,12 +30,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         recyclerView = findViewById(R.id.recyclerView);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         random = new Random();
 
-        items = generateRandomItems(20);
+        items = generateRandomItems(5);
         adapter = new MyAdapter(this, items);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupSwipeRefreshLayout() {
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            List<Integer> newItems = generateRandomItems(20);
+            List<Integer> newItems = generateRandomItems(5);
             adapter.setItems(newItems);
             swipeRefreshLayout.setRefreshing(false);
         });
@@ -124,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_refresh) {
-            List<Integer> newItems = generateRandomItems(20);
+            List<Integer> newItems = generateRandomItems(5);
             adapter.setItems(newItems);
             return true;
         }
