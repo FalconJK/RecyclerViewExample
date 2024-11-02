@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupSwipeRefreshLayout() {
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            List<Integer> newItems = generateRandomItems(5);
-            adapter.setItems(newItems);
+            items = generateRandomItems(5);
+            adapter.setItems(items);
             swipeRefreshLayout.setRefreshing(false);
         });
     }
@@ -68,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
                 ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                int fromPosition = viewHolder.getAdapterPosition();
-                int toPosition = target.getAdapterPosition();
+                int fromPosition = viewHolder.getBindingAdapterPosition();
+                int toPosition = target.getBindingAdapterPosition();
                 adapter.moveItem(fromPosition, toPosition);
                 return true;
             }
